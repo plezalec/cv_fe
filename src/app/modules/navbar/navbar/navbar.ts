@@ -4,9 +4,11 @@ import { RouterLink } from '@angular/router';
 import { NavRoute } from '@interfaces';
 import { UserInfo } from '@services';
 
+import { LoginLogoutButton } from '../../login/components/login-logout-button/login-logout-button';
+
 @Component({
   selector: 'app-navbar',
-  imports: [RouterLink],
+  imports: [RouterLink, LoginLogoutButton],
   templateUrl: './navbar.html',
   styleUrl: './navbar.css',
 })
