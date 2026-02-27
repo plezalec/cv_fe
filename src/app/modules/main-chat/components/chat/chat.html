@@ -1,0 +1,7 @@
+<p>chat works!</p>
+
+@if (conversation()) {
+    @for (message of conversation()?.messages; track message.id) {
+        <p>{{ message.sender }}: {{ message.content }}</p>
+    }
+}

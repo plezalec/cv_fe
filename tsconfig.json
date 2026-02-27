@@ -13,7 +13,15 @@
     "experimentalDecorators": true,
     "importHelpers": true,
     "target": "ES2022",
-    "module": "preserve"
+    "module": "preserve",
+    "baseUrl": "./",
+    "paths": {
+      "@interfaces": ["src/app/core/models/interfaces/"],
+      "@classes": ["src/app/core/models/classes/"],
+      "@guards": ["src/app/core/guards/"],
+      "@environments": ["src/environments/"],
+      "@services": ["src/app/core/services/"],
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

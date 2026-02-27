@@ -1,0 +1,8 @@
+<p>navbar works!</p>
+
+@for (route of routes; track route.path) {
+  <a [routerLink]="route.path">{{ route.label }}</a>
+}
+@if (user()) {
+  <p>{{ user()?.name }}</p>
+}
