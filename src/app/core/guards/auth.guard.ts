@@ -16,8 +16,8 @@ const isAccessAllowed = async (
   const { authenticated, grantedRoles } = authData;
 
   const requiredRoles = route.data['role'];
-  if (!requiredRoles || requiredRoles.length === 0) {
-    return false;
+  if (requiredRoles.length === 0) {
+    return true;
   }
 
   const hasRequiredRole = (_requiredRoles: string[]): boolean => {
