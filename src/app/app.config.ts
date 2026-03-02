@@ -24,5 +24,6 @@ export const appConfig: ApplicationConfig = {
         checkLoginIframe: environment.keycloak.initOptions.checkLoginIframe,
       }
     }),
+    provideZoneChangeDetection({ eventCoalescing: true }),
   ]
 };

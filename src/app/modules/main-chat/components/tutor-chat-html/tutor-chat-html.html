@@ -1,0 +1,16 @@
+<h1>Chat with test AI Tutor</h1>
+<h3>Let AI tutor help you learn:</h3>
+<div class="chat-container" #chatContainer>
+  <div *ngFor="let msg of messages" class="message {{msg.type}}" #messageDiv>
+    <div [innerHTML]="msg.safeContent || getSafeHtml(msg.content)"></div>
+  </div>
+  <div *ngIf="currentMessage.content !== ''" class="message {{currentMessage.type}}" #currentMessageDiv>
+    <div [innerHTML]="currentMessage.safeContent || getSafeHtml(currentMessage.content)"></div>
+  </div>
+</div>
+
+<div class="input-container">
+  <input #input type="text" [placeholder]="input_placeholder" (keydown.enter)="sendMessage(input.value); input.value=''">
+  <button (click)="sendMessage(input.value); input.value=''" #button>Send</button>
+</div>
+
