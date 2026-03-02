@@ -13,7 +13,7 @@ export class LastChat {
 
   constructor(private http: HttpClient) {}
 
-  getLastChat(): Observable<ChatConversation> {
-    return this.http.get<ChatConversation>(`${this.API_URL}last_chat`);
+  getLastChat(): Observable<ChatConversationInterface> {
+    return this.http.get<ChatConversationInterface>(`${this.API_URL}last_chat`);
   }
 }
