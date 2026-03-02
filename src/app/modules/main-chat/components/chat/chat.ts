@@ -1,7 +1,7 @@
 import { Component, signal } from '@angular/core';
 
 import { LastChat } from '../../services/last-chat';
-import { ChatConversation } from '@interfaces';
+import { ChatConversation } from '../../models/classes/chat-conversation';
 
 @Component({
   selector: 'app-chat',

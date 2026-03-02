@@ -2,7 +2,7 @@ import { Injectable} from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { HttpClient } from '@angular/common/http';
-import { ChatConversation } from '@interfaces';
+import { ChatConversationInterface, MessageInterface } from '../models/interfaces';
 import { environment } from '@environments';
 
 @Injectable({

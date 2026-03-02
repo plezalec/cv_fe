@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { Chat, Focus, Suggestions } from '../../components';
+import { Focus, Suggestions, TutorChatHtml} from '../../components';
 
 @Component({
   selector: 'app-main-page',
-  imports: [Chat, Focus, Suggestions],
+  imports: [ Focus, Suggestions, TutorChatHtml],
   templateUrl: './main-page.html',
   styleUrl: './main-page.css',
 })

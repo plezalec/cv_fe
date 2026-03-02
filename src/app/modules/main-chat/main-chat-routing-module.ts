@@ -9,7 +9,7 @@ const routes: Routes = [
     path: '',
     component: MainPage,
     data: {
-      role: [ 'default-roles-cv']
+      role: [ 'default-roles-cv' ]
     },
     canActivate: [canActivateAuthRole]
   }
