@@ -1,17 +1,63 @@
-import { Component, OnInit, OnDestroy, AfterViewChecked, ChangeDetectorRef, ViewChild, ElementRef, ApplicationRef, createComponent, EnvironmentInjector } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewChecked, ChangeDetectorRef, ViewChild, ElementRef, ApplicationRef, createComponent, EnvironmentInjector, Inject } from '@angular/core';
   import { CommonModule } from '@angular/common';
-  import { TutorWebSocketHtml } from '../../services/tutor-web-socket-html';
+  import { TutorWebSocketHtmlDelta } from '../../services/tutor-web-socket-html-delta';
   import { Subscription } from 'rxjs';
   import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
   import { SpecialButton } from '../special-button/special-button';
+  import { ParseWebSocketJsonPipe } from '../../pipes/parse-web-socket-json-pipe';
+  import { BuildHtmlFromJsonPipe } from '../../pipes/build-html-from-json-pipe';
 
   export class Message {
     public safeContent?: SafeHtml;
     constructor(
       public type: 'user' | 'tutor',
       public content: string,
-      public createdAt: Date = new Date()
+      private sanitizer: DomSanitizer,
+      private htmlBuilder: BuildHtmlFromJsonPipe,
+      private componentMap: Map<string, any> = new Map(),
+      public createdAt: Date = new Date(),
+      public jsonContent?: any,
     ) {}
+
+    private append_json_content(json: any): void {
+      if (!this.jsonContent) {
+        this.jsonContent = json;
+      } else {
+        this.jsonContent = this.apend_json_content_recursive(this.jsonContent, json);
+      }
+    }
+
+    private apend_json_content_recursive(target: any, source: any): any {
+      for (const key in source) {
+        if (target.hasOwnProperty(key) && typeof target[key] === 'object' && typeof source[key] === 'object') {
+          target[key] = this.apend_json_content_recursive(target[key], source[key]);
+        } else {
+          target[key] = source[key];
+        }
+      }
+      return target;
+    }
+
+    update_content_from_json(json_message: object): void {
+      this.append_json_content(json_message);
+      
+      // Build HTML from JSON in stages for easier debugging
+      const transformedHtml = this.htmlBuilder.transform(this.jsonContent);
+      const htmlString = transformedHtml as string;
+      const processedHtml = this.replaceComponentTags(htmlString);
+      this.content = processedHtml;
+      
+      this.safeContent = this.sanitizer.bypassSecurityTrustHtml(this.content);
+    }
+
+    private replaceComponentTags(html: string): string {
+      this.componentMap.forEach((_: any, tag: string) => {
+        const regex = new RegExp(`<${tag}[^>]*>(.*?)</${tag}>|<${tag}[^>]*/?>`, 'gs');
+        html = html.replace(regex, `<div class="dynamic-component-placeholder" data-component="${tag}"></div>`);
+      });
+      return html;
+    }
+
   }
 
   @Component({
@@ -23,7 +69,7 @@ import { Component, OnInit, OnDestroy, AfterViewChecked, ChangeDetectorRef, View
   export class TutorChatHtml implements OnInit, OnDestroy, AfterViewChecked {
     input_placeholder='Provide a topic you want to learn about...'
     messages: Message[] = []
-    currentMessage: Message = new Message('tutor', '');
+    currentMessage!: Message;
     private subscription!: Subscription;
     @ViewChild('chatContainer') chatContainer!: ElementRef;
     @ViewChild('button') button!: ElementRef;
@@ -33,12 +79,15 @@ import { Component, OnInit, OnDestroy, AfterViewChecked, ChangeDetectorRef, View
     ]);
 
     constructor(
-      private wsService: TutorWebSocketHtml,
+      private wsService: TutorWebSocketHtmlDelta,
       private cdr: ChangeDetectorRef,
-      private sanitizer: DomSanitizer,
       private appRef: ApplicationRef,
-      private injector: EnvironmentInjector
-    ){}
+      private injector: EnvironmentInjector,
+      private sanitizer: DomSanitizer,
+      private htmlBuilder: BuildHtmlFromJsonPipe
+    ){
+      this.currentMessage = new Message('tutor', '', this.sanitizer, this.htmlBuilder, this.componentMap);
+    }
 
     getSafeHtml(html: string): SafeHtml {
       return this.sanitizer.bypassSecurityTrustHtml(html);
@@ -46,14 +95,6 @@ import { Component, OnInit, OnDestroy, AfterViewChecked, ChangeDetectorRef, View
 
     ngAfterViewChecked(): void {
         this.loadDynamicComponents();
-    }
-
-    private replaceComponentTags(html: string): string {
-      this.componentMap.forEach((_, tag) => {
-        const regex = new RegExp(`<${tag}[^>]*>(.*?)</${tag}>|<${tag}[^>]*/?>`, 'gs');
-        html = html.replace(regex, `<div class="dynamic-component-placeholder" data-component="${tag}"></div>`);
-      });
-      return html;
     }
 
     private loadDynamicComponents(): void {
@@ -77,22 +118,24 @@ import { Component, OnInit, OnDestroy, AfterViewChecked, ChangeDetectorRef, View
 
     ngOnInit(): void {
       this.subscription = this.wsService.getMessages().subscribe(
-        (message: string) => {
+        //(message: object) => {
+        (message: any) => {
           console.log('Received message:', message);
           this.cdr.detectChanges();
-          if (message === "START") {
-            if (this.currentMessage.content) {
-              this.currentMessage.safeContent = this.sanitizer.bypassSecurityTrustHtml(this.currentMessage.content);
-              this.messages.push(this.currentMessage);
+          if (message['STATUS']) {
+            if (message['STATUS'] === "START") {
+              if (this.currentMessage.content) {
+                //this.currentMessage.safeContent = this.sanitizer.bypassSecurityTrustHtml(this.currentMessage.content);
+                this.messages.push(this.currentMessage);
+              }
+              this.currentMessage = new Message('tutor', '', this.sanitizer, this.htmlBuilder, this.componentMap);
+              this.currentMessage.safeContent = undefined;
+            } else if (message['STATUS'] === "END"){
+              this.button.nativeElement.disabled = false;
+              //this.currentMessage.safeContent = this.sanitizer.bypassSecurityTrustHtml(this.currentMessage.content);
             }
-            this.currentMessage = new Message('tutor', '');
-            this.currentMessage.safeContent = undefined;
-          } else if (message === "END"){
-            this.button.nativeElement.disabled = false;
-            this.currentMessage.safeContent = this.sanitizer.bypassSecurityTrustHtml(this.currentMessage.content);
           } else {
-            this.currentMessage.content = this.replaceComponentTags(message);
-            this.currentMessage.safeContent = this.sanitizer.bypassSecurityTrustHtml(this.currentMessage.content);
+            this.currentMessage.update_content_from_json( message);
           }
           this.cdr.detectChanges();
           setTimeout(() => {this.autoscroll();}, 100);
@@ -108,8 +151,8 @@ import { Component, OnInit, OnDestroy, AfterViewChecked, ChangeDetectorRef, View
         if (this.currentMessage.content) {
           this.messages.push(this.currentMessage);
         }
-        this.currentMessage = new Message('tutor', '');
-        this.messages.push(new Message('user', message));
+        this.currentMessage = new Message('tutor', '', this.sanitizer, this.htmlBuilder, this.componentMap);
+        this.messages.push(new Message('user', message, this.sanitizer, this.htmlBuilder));
         this.wsService.sendMessage(message);
         this.button.nativeElement.disabled = true;
         // Scroll to bottom after sending message
