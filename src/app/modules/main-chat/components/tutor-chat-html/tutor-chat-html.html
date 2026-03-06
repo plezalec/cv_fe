@@ -1,6 +1,6 @@
-<h1>Chat with test AI Tutor</h1>
-<h3>Let AI tutor help you learn:</h3>
-<div class="chat-container" #chatContainer>
+
+<div class="chat-container" #chatContainer (scroll)="chatContainerScrolled()">
+  <div class="tutor-head" [class.bobbing]="isStreaming" [style.bottom.px]="10-chatContainerScrollTop()" (scroll)="chatContainerScrolled()" #tutorHead>🤖</div>
   <div *ngFor="let msg of messages" class="message {{msg.type}}" #messageDiv>
     <div [innerHTML]="msg.safeContent || getSafeHtml(msg.content)"></div>
   </div>

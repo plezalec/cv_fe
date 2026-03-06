@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, AfterViewChecked, ChangeDetectorRef, ViewChild, ElementRef, ApplicationRef, createComponent, EnvironmentInjector, Inject } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewChecked, ChangeDetectorRef, ViewChild, ElementRef, ApplicationRef, createComponent, EnvironmentInjector, Inject, HostListener, signal, computed } from '@angular/core';
   import { CommonModule } from '@angular/common';
   import { TutorWebSocketHtmlDelta } from '../../services/tutor-web-socket-html-delta';
   import { Subscription } from 'rxjs';
@@ -70,9 +70,12 @@ import { Component, OnInit, OnDestroy, AfterViewChecked, ChangeDetectorRef, View
     input_placeholder='Provide a topic you want to learn about...'
     messages: Message[] = []
     currentMessage!: Message;
+    isStreaming = false;
     private subscription!: Subscription;
     @ViewChild('chatContainer') chatContainer!: ElementRef;
     @ViewChild('button') button!: ElementRef;
+    public chatContainerScrollTop = signal(0);
+    
 
     private componentMap: Map<string, any> = new Map([
       ['app-special-button', SpecialButton],
@@ -93,8 +96,30 @@ import { Component, OnInit, OnDestroy, AfterViewChecked, ChangeDetectorRef, View
       return this.sanitizer.bypassSecurityTrustHtml(html);
     }
 
+    ngAfterViewInit(): void {
+      this.chatContainerScrollTop.set(this.chatContainer.nativeElement?.scrollTop || 0);
+    }
+
     ngAfterViewChecked(): void {
         this.loadDynamicComponents();
+        
+        //this.updateLastMessageBottomPosition();
+    }
+
+    updateLastMessageBottomPosition(): void {
+      
+      const container = this.chatContainer.nativeElement;
+      
+      // Find all tutor messages with non-empty content
+      const allMessages = Array.from(container.querySelectorAll('.message.tutor')) as HTMLElement[];
+      const lastTutorMsg = allMessages.reverse().find(msg => msg.textContent && msg.textContent.trim().length > 0);
+      
+      const containerRect = container.getBoundingClientRect();
+      const msgRect = lastTutorMsg?.getBoundingClientRect();
+      
+      if (!lastTutorMsg) {
+        return;
+      }
     }
 
     private loadDynamicComponents(): void {
@@ -116,6 +141,12 @@ import { Component, OnInit, OnDestroy, AfterViewChecked, ChangeDetectorRef, View
       });
     }
 
+    chatContainerScrolled(): void {
+      console.log('Chat container scrolled. Current scrollTop:', this.chatContainer.nativeElement.scrollTop);
+      this.chatContainerScrollTop.set(this.chatContainer.nativeElement.scrollTop);
+//this.updateLastMessageBottomPosition();
+    }
+
     ngOnInit(): void {
       this.subscription = this.wsService.getMessages().subscribe(
         //(message: object) => {
@@ -130,12 +161,16 @@ import { Component, OnInit, OnDestroy, AfterViewChecked, ChangeDetectorRef, View
               }
               this.currentMessage = new Message('tutor', '', this.sanitizer, this.htmlBuilder, this.componentMap);
               this.currentMessage.safeContent = undefined;
+              this.isStreaming = true;
             } else if (message['STATUS'] === "END"){
               this.button.nativeElement.disabled = false;
+              this.isStreaming = false;
               //this.currentMessage.safeContent = this.sanitizer.bypassSecurityTrustHtml(this.currentMessage.content);
             }
           } else {
             this.currentMessage.update_content_from_json( message);
+            
+            this.updateLastMessageBottomPosition();
           }
           this.cdr.detectChanges();
           setTimeout(() => {this.autoscroll();}, 100);
@@ -198,4 +233,5 @@ import { Component, OnInit, OnDestroy, AfterViewChecked, ChangeDetectorRef, View
       this.subscription.unsubscribe();
       this.wsService.close()
     }
+
   }
