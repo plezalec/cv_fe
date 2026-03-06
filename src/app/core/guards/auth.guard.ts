@@ -8,11 +8,6 @@ const isAccessAllowed = async (
   __: RouterStateSnapshot,
   authData: AuthGuardData
 ): Promise<boolean | UrlTree> => {
-  // Refresh token before checking roles
-  const keycloak = inject(Keycloak);
-  if (keycloak.refreshToken) {
-    await keycloak.updateToken(300);
-  }
 
   const { authenticated, grantedRoles } = authData;
 
@@ -28,6 +23,10 @@ const isAccessAllowed = async (
   };
 
   if (authenticated && hasRequiredRole(requiredRoles)) {
+    const keycloak = inject(Keycloak);
+    if (keycloak.refreshToken) {
+      await keycloak.updateToken(300);
+    }
     return true;
   }
 
