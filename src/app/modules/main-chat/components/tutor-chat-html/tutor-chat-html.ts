@@ -102,25 +102,8 @@ import { Component, OnInit, OnDestroy, AfterViewChecked, ChangeDetectorRef, View
 
     ngAfterViewChecked(): void {
         this.loadDynamicComponents();
-        
-        //this.updateLastMessageBottomPosition();
     }
 
-    updateLastMessageBottomPosition(): void {
-      
-      const container = this.chatContainer.nativeElement;
-      
-      // Find all tutor messages with non-empty content
-      const allMessages = Array.from(container.querySelectorAll('.message.tutor')) as HTMLElement[];
-      const lastTutorMsg = allMessages.reverse().find(msg => msg.textContent && msg.textContent.trim().length > 0);
-      
-      const containerRect = container.getBoundingClientRect();
-      const msgRect = lastTutorMsg?.getBoundingClientRect();
-      
-      if (!lastTutorMsg) {
-        return;
-      }
-    }
 
     private loadDynamicComponents(): void {
       if (!this.chatContainer?.nativeElement) return;
@@ -144,19 +127,16 @@ import { Component, OnInit, OnDestroy, AfterViewChecked, ChangeDetectorRef, View
     chatContainerScrolled(): void {
       console.log('Chat container scrolled. Current scrollTop:', this.chatContainer.nativeElement.scrollTop);
       this.chatContainerScrollTop.set(this.chatContainer.nativeElement.scrollTop);
-//this.updateLastMessageBottomPosition();
     }
 
     ngOnInit(): void {
       this.subscription = this.wsService.getMessages().subscribe(
-        //(message: object) => {
         (message: any) => {
           console.log('Received message:', message);
           this.cdr.detectChanges();
           if (message['STATUS']) {
             if (message['STATUS'] === "START") {
               if (this.currentMessage.content) {
-                //this.currentMessage.safeContent = this.sanitizer.bypassSecurityTrustHtml(this.currentMessage.content);
                 this.messages.push(this.currentMessage);
               }
               this.currentMessage = new Message('tutor', '', this.sanitizer, this.htmlBuilder, this.componentMap);
@@ -165,12 +145,9 @@ import { Component, OnInit, OnDestroy, AfterViewChecked, ChangeDetectorRef, View
             } else if (message['STATUS'] === "END"){
               this.button.nativeElement.disabled = false;
               this.isStreaming = false;
-              //this.currentMessage.safeContent = this.sanitizer.bypassSecurityTrustHtml(this.currentMessage.content);
             }
           } else {
             this.currentMessage.update_content_from_json( message);
-            
-            this.updateLastMessageBottomPosition();
           }
           this.cdr.detectChanges();
           setTimeout(() => {this.autoscroll();}, 100);
