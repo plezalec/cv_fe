@@ -15,3 +15,7 @@ https://docs.redhat.com/en/documentation/red_hat_build_of_keycloak/22.0/html-sin
 - on bottom of message bubble
 
 ## Fix backend database session initialization
+
+
+## Chat scrolling
+When new message is arriving, scrolling feels sticky

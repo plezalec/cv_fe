@@ -1,0 +1,10 @@
+.app-header{
+  height: 20vh;
+  margin: 0;
+  font-family: Arial, sans-serif;
+
+}
+.app-body {
+    height: 80vh;
+    margin: 0;
+}
