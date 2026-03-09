@@ -1,0 +1,39 @@
+mat-icon {
+  font-size: 40px;
+  vertical-align: middle;
+  margin-right: 16px;
+  line-height: 1;
+  height: 40px;
+  width: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+img {
+  max-height: 55px; /* adjust to fit your navbar height */
+  width: 140px;      /* set fixed width for cropping */
+  height: 140px;
+  object-fit: cover; /* crop horizontally if needed */
+  display: block;
+  border-radius: 6px; /* optional: rounded corners */
+}
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+mat-toolbar {
+  background: rgba(255, 255, 255, 0.2); /* semi-transparent white */
+  backdrop-filter: blur(5px);           /* barely blurred effect */
+  -webkit-backdrop-filter: blur(5px);   /* for Safari */
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1); /* optional, for depth */
+  border-bottom: 1px solid rgba(255,255,255,0.2); /* optional, subtle border */
+}
+.rounded-btn {
+  border-radius: 5px !important;
+  font-family: 'Stick No Bills', sans-serif !important;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 1.2em;
+  letter-spacing: 0.5px;
+  color: #222;
+}

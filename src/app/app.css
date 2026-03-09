@@ -1,10 +1,23 @@
-.app-header{
+/* .app-header{
   height: 20vh;
   margin: 0;
   font-family: Arial, sans-serif;
 
 }
+*/  
 .app-body {
-    height: 80vh;
-    margin: 0;
+  margin: 0;
+  padding-top: 64px; /* set to navbar height */
+  background-image: url('/xai-tmp-imgen-af5cc0ee-8ab2-4313-a699-4741aeb8b26e.jpeg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: repeat-y;
+}
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000; /* ensures it stays on top */
 }

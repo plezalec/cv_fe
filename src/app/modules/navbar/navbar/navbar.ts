@@ -1,4 +1,10 @@
 import { Component, inject } from '@angular/core';
+
+
+import {MatIconModule} from '@angular/material/icon';
+import {MatButtonModule} from '@angular/material/button';
+import {MatToolbarModule} from '@angular/material/toolbar';
+
 import { RouterLink } from '@angular/router';
 
 import { NavRoute } from '@interfaces';
@@ -8,7 +14,7 @@ import { LoginLogoutButton } from '../../login/components/login-logout-button/lo
 
 @Component({
   selector: 'app-navbar',
-  imports: [RouterLink, LoginLogoutButton],
+  imports: [RouterLink, LoginLogoutButton, MatIconModule, MatButtonModule, MatToolbarModule],
   templateUrl: './navbar.html',
   styleUrl: './navbar.css',
 })

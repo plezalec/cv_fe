@@ -1,0 +1,12 @@
+.login-icon {
+  max-height: 40px; /* adjust to fit your navbar height */
+  object-fit: cover; /* crop horizontally if needed */
+  display: block;
+  border-radius: 5px; /* optional: rounded corners */
+
+}
+
+.login-button {
+  border-radius: 5px !important;
+  width: 80px;      /* set fixed width for cropping */
+}

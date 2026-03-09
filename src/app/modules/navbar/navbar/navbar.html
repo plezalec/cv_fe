@@ -1,9 +1,21 @@
-<p>navbar works!</p>
+<mat-toolbar>
 
-@for (route of routes; track route.path) {
-  <a [routerLink]="route.path">{{ route.label }}</a>
-}
-@if (user()) {
+
+<a routerLink="" ><img src="xai-tmp-imgen-e44d5eb7-84c9-4faa-acf3-923a629b4477.jpeg" alt="Logo image"></a>
+<span class="example-spacer"></span>
+<div class="links">
+  @for (route of routes; track route.path) {
+    
+    <a matButton [routerLink]="route.path" class="rounded-btn">{{ route.label }}</a>
+  }
+</div>
+
+<span class="example-spacer"></span>
+ @if (user()) {
   <p>{{ user()?.name }}</p>
 }
+  <mat-icon >person</mat-icon>
+
   <app-login-logout-button/>
+
+  </mat-toolbar>

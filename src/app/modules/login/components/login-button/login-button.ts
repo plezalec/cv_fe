@@ -1,10 +1,11 @@
 import { Component, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import Keycloak from 'keycloak-js';
+import {MatButtonModule} from '@angular/material/button';
 
 @Component({
   selector: 'app-login-button',
-  imports: [],
+  imports: [MatButtonModule],
   templateUrl: './login-button.html',
   styleUrl: './login-button.css',
 })
