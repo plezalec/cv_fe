@@ -1,0 +1,45 @@
+/* Make login button bigger only on this page */
+:host ::ng-deep .login-button {
+  width: 180px !important;
+  height: 88px !important;
+  font-size: 1.3rem !important;
+  padding: 14px 28px !important;
+  font-weight: bold !important;
+}
+  
+/* Optionally, make the icon bigger too */
+:host ::ng-deep .login-icon {
+  max-height: 88px !important;
+  border-radius: 10px; /* optional: rounded corners */
+}
+.main-page-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: calc(100vh - 64px);
+}
+
+.main-page-content p {
+  margin-top: 16px;
+  margin-bottom: 24px;
+  font-size: 1.2rem;
+  color: #c6eff493;
+}
+
+.main-page-content h1 {
+  color: #c6eff493;
+}
+
+/* Centered translucent stripe */
+.main-page-content {
+  background: rgba(255,255,255,0.25);
+  box-shadow: 0 4px 32px rgba(0,0,0,0.08);
+  border-radius: 18px;
+  padding: 48px 40px;
+  min-width: 340px;
+  max-width: 90vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
