@@ -1,4 +1,6 @@
 
+<button (click)="initializeNewConversation()">New chat </button>
+
 <div class="chat-container" #chatContainer (scroll)="chatContainerScrolled()">
   <div class="tutor-head" [class.bobbing]="isStreaming" [style.bottom.px]="10-chatContainerScrollTop()" (scroll)="chatContainerScrolled()" #tutorHead>
     <img src="cv-head.png" alt="Tutor Head" style="height: 40px; width: 40px; object-fit: contain;" />

@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { ChatConversationInterface, MessageInterface } from '../models/interfaces';
 import { environment } from '@environments';
 
+
 @Injectable({
   providedIn: 'root',
 })
@@ -13,7 +14,7 @@ export class LastChat {
 
   constructor(private http: HttpClient) {}
 
-  getLastChat(): Observable<ChatConversationInterface> {
-    return this.http.get<ChatConversationInterface>(`${this.API_URL}last_chat`);
+  getLastChat(newChat: boolean = false): Observable<ChatConversationInterface> {
+    return this.http.get<ChatConversationInterface>(`${this.API_URL}last_chat?new_chat=${newChat}`);
   }
 }

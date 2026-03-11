@@ -13,7 +13,7 @@ export class TutorWebSocketHtmlDelta {
   private readonly keycloak = inject(Keycloak);
   private readonly parseWebSocketJsonPipe = inject(ParseWebSocketJsonPipe);
 
-  private async initSocket(): Promise<WebSocketSubject<any>> {
+  async initSocket(): Promise<WebSocketSubject<any>> {
     if (!this.socket$) {
       // Check if user is authenticated
       if (!this.keycloak.authenticated) {
@@ -39,7 +39,7 @@ export class TutorWebSocketHtmlDelta {
     return this.socket$;
   }
 
-  async sendMessage(message: string): Promise<void> {
+  async sendMessage(message: string | object): Promise<void> {
     const socket = await this.initSocket();
     socket.next(message);
   }

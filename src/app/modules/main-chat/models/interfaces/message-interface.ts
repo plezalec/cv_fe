@@ -1,6 +1,6 @@
 export interface MessageInterface {
     id: number;
-    content: string;
-    sender: string;
+    content: object;// json content from backend
+    sender:'user' | 'tutor',
     timestamp: Date;
 }
