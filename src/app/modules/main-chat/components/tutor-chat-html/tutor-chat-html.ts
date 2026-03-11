@@ -121,6 +121,9 @@ export class TutorChatHtml implements OnInit, OnDestroy, AfterViewChecked {
   }
 
   initializeNewConversation(): void {
+    this.subscription.unsubscribe();
+    this.wsService.close();
+    this.subscribeToMessages();
 
     this.lastChatService.getLastChat(true).subscribe({
       next: (data) => {
@@ -198,6 +201,10 @@ export class TutorChatHtml implements OnInit, OnDestroy, AfterViewChecked {
   }
 
   ngOnInit(): void {
+    this.subscribeToMessages();
+  }
+
+  private subscribeToMessages(): void {
     this.subscription = this.wsService.getMessages().subscribe(
       (message: any) => {
         console.log('Received message:', message);
