@@ -240,7 +240,7 @@ export class TutorChatHtml implements OnInit, OnDestroy, AfterViewChecked {
       }
       this.currentMessage = new Message('tutor', '', this.sanitizer, this.htmlBuilder, this.componentMap);
       this.messages.push(new Message('user', message, this.sanitizer, this.htmlBuilder));
-      this.wsService.sendMessage(message);
+      this.wsService.sendMessage({"text": message});
       this.button.nativeElement.disabled = true;
       // Scroll to bottom after sending message
       setTimeout(() => this.scrollToBottom(), 100);

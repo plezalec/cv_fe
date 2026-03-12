@@ -8,7 +8,7 @@
   <div *ngFor="let msg of messages" class="message {{msg.type}}" #messageDiv>
     <div [innerHTML]="msg.safeContent || getSafeHtml(msg.content)"></div>
   </div>
-  <div *ngIf="currentMessage.content !== ''" class="message {{currentMessage.type}}" #currentMessageDiv>
+  <div *ngIf="currentMessage && currentMessage.content !== ''" class="message {{currentMessage.type}}" #currentMessageDiv>
     <div [innerHTML]="currentMessage.safeContent || getSafeHtml(currentMessage.content)"></div>
   </div>
 </div>
