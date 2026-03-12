@@ -7,7 +7,12 @@ export const routes: Routes = [
             import('./modules/front-page/front-page-module').then(m => m.FrontPageModule),
     },
     {
-        path:'main-chat',
+        path:'cv-chat',
+        loadChildren: () => 
+            import('./modules/cv-chat/cv-chat-module').then(m => m.CvChatModule),
+    },
+    {
+        path:'tutor-chat',
         loadChildren: () => 
             import('./modules/main-chat/main-chat-module').then(m => m.MainChatModule),
     },

@@ -1,0 +1,9 @@
+.message-window-container {
+    overflow-y: auto; /* enable vertical scrolling */
+    background-color: #f5f5f530; /* optional: light background for contrast */
+    border-radius: 15px;
+    overflow-y: auto;
+    white-space: normal;
+    word-break: break-word; /* helps break long words/URLs if needed */
+    height:100%;
+}

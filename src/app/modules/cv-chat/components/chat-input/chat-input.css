@@ -1,0 +1,28 @@
+.chat-input-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 5px 0;
+    gap: 7px;
+}
+.send-button {
+    margin-bottom: 0px;
+    border-radius: 8px;
+}
+.chat-input {
+    width: 100%;
+    margin-bottom: 0px;
+    border-radius: 5px;
+}
+
+.more-options-button {
+    margin-bottom: 0px;
+    border-radius: 8px;
+}
+
+textarea {
+  min-height: 40px;
+  max-height: 200px;
+  overflow-y: auto;
+  resize: none; /* optional, allows manual resizing */
+}

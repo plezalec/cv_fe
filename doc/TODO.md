@@ -19,3 +19,8 @@ https://docs.redhat.com/en/documentation/red_hat_build_of_keycloak/22.0/html-sin
 
 ## Chat scrolling
 When new message is arriving, scrolling feels sticky
+
+
+# Scrollable chat window with selective rendering
+https://material.angular.dev/cdk/scrolling/overview
+*cdkVirtualFor
