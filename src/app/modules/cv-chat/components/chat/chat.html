@@ -1,5 +1,5 @@
 
 <div class="chat-container">
-<app-message-window ></app-message-window>
-<app-chat-input></app-chat-input>
+<app-message-window #messageWindow [conversation]="conversation" ></app-message-window>
+<app-chat-input (messageSend)="onMessageSend($event)"></app-chat-input>
 </div>

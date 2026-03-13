@@ -1,23 +1,55 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, ElementRef, ViewChild, OnDestroy, AfterViewInit, inject } from '@angular/core';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
+import { FormsModule } from '@angular/forms';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+
+import { DisplayMessage } from '../../models/classes/display-message';
 
 @Component({
   selector: 'app-chat-input',
-  imports: [ MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule],
+  imports: [ MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule, FormsModule],
   templateUrl: './chat-input.html',
   styleUrl: './chat-input.css',
 })
-export class ChatInput {
-  @Output() heightChange = new EventEmitter<number>();
+export class ChatInput implements AfterViewInit, OnDestroy {
+  @Output() messageSend = new EventEmitter<DisplayMessage>();
+  @ViewChild('textarea', {static: true}) textarea!: ElementRef<HTMLTextAreaElement>;
+
+  private windowResizeHandler!: () => void;
+  messageText: string = '';
+  sanitizer: DomSanitizer=inject(DomSanitizer);
+
+  ngAfterViewInit() {
+    this.initializeWindowResizeListener();
+  }
+
+  ngOnDestroy() {
+    window.removeEventListener('resize', this.windowResizeHandler);
+  }
+
+  initializeWindowResizeListener() {
+    this.windowResizeHandler = () => {
+      this.autoResizeTextarea(this.textarea.nativeElement);
+    };
+    window.addEventListener('resize', this.windowResizeHandler);
+  }
 
   autoResizeTextarea(textarea: HTMLTextAreaElement){
     textarea.style.height = 'auto';
     textarea.style.height = textarea.scrollHeight + 'px';
-    console.log('Emmiting signal heightChange:', textarea.offsetHeight);
-    this.heightChange.emit(textarea.offsetHeight);
   }
 
+  sendMessage() {
+    if (this.messageText.trim()) {
+      const message = new DisplayMessage("user",this.sanitizer);
+      message.update_content_from_string(this.messageText);
+      this.messageSend.emit(message);
+      this.messageText = '';
+      setTimeout(() => this.autoResizeTextarea(this.textarea.nativeElement));
+    }
+
+  }
 }

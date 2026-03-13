@@ -6,4 +6,33 @@
     white-space: normal;
     word-break: break-word; /* helps break long words/URLs if needed */
     height:100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.message {
+  display: block;
+  margin-bottom: 5px;
+  padding: 6px 16px;
+  border-radius: 20px;
+  max-width: 80%;
+  word-wrap: break-word;
+  animation: fadeIn 0.3s ease-in;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.user {
+  background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+  color: #2d3748;
+  align-self: flex-end; /* This will align user messages to the right */
+  border-bottom-right-radius: 5px;
+  font-weight: 500;
+}
+
+.bot {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  align-self: flex-start; /* This will align bot messages to the left */
+  border-bottom-left-radius: 5px;
+  position: relative;
 }

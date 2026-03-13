@@ -16,7 +16,7 @@ export class Message {
   private jsonContent?: any;
   public createdAt: Date;
   constructor(
-    public type: 'user' | 'tutor',
+    public type: 'user' | 'bot',
     public content: string,
     private sanitizer: DomSanitizer,
     private htmlBuilder: BuildHtmlFromJsonPipe,
@@ -160,7 +160,7 @@ export class TutorChatHtml implements OnInit, OnDestroy, AfterViewChecked {
     const parseWebSocketJsonPipe = new ParseWebSocketJsonPipe();
     for (const lastMessage of this.lastConversation()?.messages || []) {
       const message = new Message(
-        lastMessage.sender as 'user' | 'tutor',
+        lastMessage.sender as 'user' | 'bot',
         '',
         this.sanitizer,
         this.htmlBuilder,
@@ -171,7 +171,7 @@ export class TutorChatHtml implements OnInit, OnDestroy, AfterViewChecked {
       message.update_content_from_json(parsedContent as object);
       this.messages.push(message);
     }
-    this.currentMessage = new Message('tutor', '', this.sanitizer, this.htmlBuilder, this.componentMap);
+    this.currentMessage = new Message('bot', '', this.sanitizer, this.htmlBuilder, this.componentMap);
     // Successfully received confirmation, do nothing (auto-unsubscribed)
   }
 
@@ -214,7 +214,7 @@ export class TutorChatHtml implements OnInit, OnDestroy, AfterViewChecked {
             if (this.currentMessage.content) {
               this.messages.push(this.currentMessage);
             }
-            this.currentMessage = new Message('tutor', '', this.sanitizer, this.htmlBuilder, this.componentMap);
+            this.currentMessage = new Message('bot', '', this.sanitizer, this.htmlBuilder, this.componentMap);
             this.currentMessage.safeContent = undefined;
             this.isStreaming = true;
           } else if (message['STATUS'] === "END") {
@@ -238,7 +238,7 @@ export class TutorChatHtml implements OnInit, OnDestroy, AfterViewChecked {
       if (this.currentMessage.content) {
         this.messages.push(this.currentMessage);
       }
-      this.currentMessage = new Message('tutor', '', this.sanitizer, this.htmlBuilder, this.componentMap);
+      this.currentMessage = new Message('bot', '', this.sanitizer, this.htmlBuilder, this.componentMap);
       this.messages.push(new Message('user', message, this.sanitizer, this.htmlBuilder));
       this.wsService.sendMessage({"text": message});
       this.button.nativeElement.disabled = true;
