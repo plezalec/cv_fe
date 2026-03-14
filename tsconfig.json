@@ -21,6 +21,7 @@
       "@guards": ["src/app/core/guards/"],
       "@environments": ["src/environments/"],
       "@services": ["src/app/core/services/"],
+      "@enums": ["src/app/core/models/enums/"],
     }
   },
   "angularCompilerOptions": {

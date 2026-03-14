@@ -1,5 +1,7 @@
 <div class="message-window-container">
-    <div *ngFor="let msg of messages" class="message {{msg.type}}">
-        <div [innerHTML]="msg.safeContent()"></div>
-    </div>
+    @for (msg of messages; track msg) {
+        <div class="message {{msg.type}}">
+            <div [innerHTML]="msg.safeContent()"></div>
+        </div>
+    }
 </div>

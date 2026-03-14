@@ -1,12 +1,17 @@
 import { BuildHtmlFromJsonPipe } from '../../pipes/build-html-from-json-pipe';
 import { signal } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { Observable, Subscription } from 'rxjs';
+
+import { ChatWebSocket } from '../../services/chat-web-socket';
+import { MessageContentMessage } from '@interfaces';
 
 export class DisplayMessage {
     type: 'user' | 'bot';
     jsonContent?: object;
     safeContent = signal('' as SafeHtml);
     htmlBuilder: BuildHtmlFromJsonPipe;
+    private subscription!: Subscription;
 
     constructor(type: 'user' | 'bot', sanitizer: DomSanitizer) {
         this.htmlBuilder = new BuildHtmlFromJsonPipe(sanitizer);
@@ -39,15 +44,20 @@ export class DisplayMessage {
   update_content_from_json(json_message: object): void {
     this.append_json_content(json_message);
     this.safeContent.set(this.htmlBuilder.transform(this.jsonContent));
-
-    // Build HTML from JSON in stages for easier debugging
-    // const transformedHtml = this.htmlBuilder.transform(this.jsonContent);
-    // const htmlString = transformedHtml as string;
-    // const processedHtml = this.replaceComponentTags(htmlString);
-    // this.content = processedHtml;
-
-    // this.safeContent = this.sanitizer.bypassSecurityTrustHtml(this.content);
-
-    //this.sanitizer.bypassSecurityTrustHtml(this.replaceComponentTags(this.htmlBuilder.transform(this.jsonContent)) as string));
   }
+
+  subscribe(subscription: Observable<any>): void {
+    this.subscription=subscription.subscribe((message: MessageContentMessage) => {
+      this.update_content_from_json(message.content);
+    });
+
+  }
+
+  unsubscribe(){
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
+
+  }
+
 }

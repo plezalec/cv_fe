@@ -6,6 +6,7 @@ import {MatIconModule} from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
+import { ChatWebSocket } from '../../services/chat-web-socket';
 import { DisplayMessage } from '../../models/classes/display-message';
 
 @Component({
@@ -17,6 +18,12 @@ import { DisplayMessage } from '../../models/classes/display-message';
 export class ChatInput implements AfterViewInit, OnDestroy {
   @Output() messageSend = new EventEmitter<DisplayMessage>();
   @ViewChild('textarea', {static: true}) textarea!: ElementRef<HTMLTextAreaElement>;
+
+  
+  constructor(
+     private wsService: ChatWebSocket
+    ) {
+  }
 
   private windowResizeHandler!: () => void;
   messageText: string = '';
@@ -47,6 +54,7 @@ export class ChatInput implements AfterViewInit, OnDestroy {
       const message = new DisplayMessage("user",this.sanitizer);
       message.update_content_from_string(this.messageText);
       this.messageSend.emit(message);
+      this.wsService.sendUserMessage(this.messageText);
       this.messageText = '';
       setTimeout(() => this.autoResizeTextarea(this.textarea.nativeElement));
     }

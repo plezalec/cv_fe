@@ -5,7 +5,7 @@ import { DisplayMessage } from './display-message';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 export class ChatConversation {
-  readonly id!: number;
+  id!: number;
   messages: DisplayMessage[] = [];
 
   constructor(data: ChatConversationInterface, sanitizer: DomSanitizer) {

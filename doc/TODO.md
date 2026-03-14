@@ -24,3 +24,5 @@ When new message is arriving, scrolling feels sticky
 # Scrollable chat window with selective rendering
 https://material.angular.dev/cdk/scrolling/overview
 *cdkVirtualFor
+
+# Display message should be an angular componenet
