@@ -8,7 +8,10 @@
   class="chat-input"
 ></textarea>
     <button matButton="filled" (click)="sendMessage()" class="send-button">Send</button>
-    <button matIconButton aria-label="More options" class="more-options-button">
+    <button matIconButton aria-label="More options" [matMenuTriggerFor]="aboveMenu" class="more-options-button">
         <mat-icon>more_vert</mat-icon>
     </button>
+        <mat-menu #aboveMenu="matMenu" yPosition="above">        
+        <button matButton="filled" (click)="startNewConversation()" class="new-conversation-button">New conversation</button>
+        </mat-menu>
 </div>

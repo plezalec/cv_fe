@@ -22,6 +22,7 @@ export class Chat implements OnInit {
 
   public conversation?: ChatConversation;
   sanitizer: DomSanitizer= inject(DomSanitizer);
+  private firstTime:boolean=true;
 
   constructor(
     private chatService: ChatService,
@@ -31,6 +32,7 @@ export class Chat implements OnInit {
 
   ngOnInit() {
     this.setLastConversation();
+    this.firstTime=false;
   }
 
   onMessageSend(message: DisplayMessage) {
@@ -57,6 +59,9 @@ export class Chat implements OnInit {
 
   setConversation(conversationData: ChatConversationInterface){
       this.conversation = new ChatConversation(conversationData,this.sanitizer);
+      if (!this.firstTime){
+        this.wsService.close();
+      }
       this.wsService.initializeConversation(this.conversation)
   }
 }
