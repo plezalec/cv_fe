@@ -1,6 +1,12 @@
-
 <div class="chat-input-container">
-    <textarea matInput #textarea [(ngModel)]="messageText" (input)="autoResizeTextarea(textarea)" placeholder="Ex. It makes me feel..." class="chat-input"></textarea>
+    <textarea
+  matInput
+  #textarea
+  [(ngModel)]="messageText"
+  (input)="autoResizeTextarea(textarea)"
+  (keydown)="onTextareaKeydown($event)"
+  class="chat-input"
+></textarea>
     <button matButton="filled" (click)="sendMessage()" class="send-button">Send</button>
     <button matIconButton aria-label="More options" class="more-options-button">
         <mat-icon>more_vert</mat-icon>

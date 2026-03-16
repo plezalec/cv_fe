@@ -60,4 +60,12 @@ export class ChatInput implements AfterViewInit, OnDestroy {
     }
 
   }
+
+  onTextareaKeydown(event: KeyboardEvent) {
+    if (event.key === 'Enter' && !event.shiftKey) {
+      event.preventDefault(); // Prevents new line for Enter alone
+      this.sendMessage();
+    }
+    // Shift+Enter will insert a new line by default
+  }
 }

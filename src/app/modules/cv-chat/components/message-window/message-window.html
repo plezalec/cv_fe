@@ -1,7 +1,12 @@
-<div class="message-window-container">
+
+<div class="parent-container">
+<div #messageWindowContainer (scroll)="onScroll()" class="message-window-container">
     @for (msg of messages; track msg) {
         <div class="message {{msg.type}}">
             <div [innerHTML]="msg.safeContent()"></div>
         </div>
     }
+</div>
+
+<app-agent-avatar #agentAvatar></app-agent-avatar>
 </div>
