@@ -1,4 +1,6 @@
-import { Component, ViewChild, ElementRef, signal } from '@angular/core';
+import { Component, ViewChild, ElementRef, signal, Input } from '@angular/core';
+
+import {ChatType } from '@enums';
 
 @Component({
   selector: 'app-agent-avatar',
@@ -8,6 +10,7 @@ import { Component, ViewChild, ElementRef, signal } from '@angular/core';
 })
 export class AgentAvatar {
   @ViewChild('agentAvatar', { static: true }) agentAvatar!: ElementRef<HTMLDivElement>;
+  @Input('chatType') chatType!: ChatType;
 
   isStreaming = signal<boolean>(false);
 

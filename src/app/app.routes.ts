@@ -7,14 +7,9 @@ export const routes: Routes = [
             import('./modules/front-page/front-page-module').then(m => m.FrontPageModule),
     },
     {
-        path:'cv-chat',
+        path:'chat',
         loadChildren: () => 
             import('./modules/cv-chat/cv-chat-module').then(m => m.CvChatModule),
-    },
-    {
-        path:'tutor-chat',
-        loadChildren: () => 
-            import('./modules/main-chat/main-chat-module').then(m => m.MainChatModule),
     },
     {
         path:'unauthorised',
@@ -22,6 +17,6 @@ export const routes: Routes = [
     },
     {
         path: '**',
-        loadComponent: () => import('./modules/front-page/page-not-found/page-not-found').then(m => m.PageNotFound)
+        loadComponent: () => import('./modules/front-page/pages/page-not-found/page-not-found').then(m => m.PageNotFound)
     }
 ];

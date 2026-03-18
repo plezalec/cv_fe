@@ -32,7 +32,12 @@ export interface MessageStatusMessage extends ChatSocketMessage {
     // The type of the message status (e.g., START, END, ERROR)
     // Both message status messages and message content messages will have same ids, so that the frontend can correlate them
     type: MessageType.MessageStatus;
-    content: MessageStatusOptions
+    content: MessageStatusContent;
+}
+
+export interface MessageStatusContent {
+    type: MessageStatusOptions;
+    content: object;
 }
 
 export interface MessageContentMessage extends ChatSocketMessage {

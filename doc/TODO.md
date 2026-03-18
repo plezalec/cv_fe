@@ -26,3 +26,5 @@ https://material.angular.dev/cdk/scrolling/overview
 *cdkVirtualFor
 
 # Display message should be an angular componenet
+
+# Light dark theme

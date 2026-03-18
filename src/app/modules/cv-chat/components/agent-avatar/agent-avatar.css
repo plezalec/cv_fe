@@ -3,6 +3,13 @@
   animation: agent-bob 0.7s infinite cubic-bezier(.68,-0.55,.27,1.55);
 }
 
+.agent-avatar {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
 @keyframes agent-bob {
   0% { transform: translateY(0); }
   20% { transform: translateY(-8px); }

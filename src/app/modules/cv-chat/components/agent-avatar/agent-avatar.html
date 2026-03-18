@@ -1,3 +1,4 @@
 <div class="agent-avatar" [class.bobbing]="isStreaming()" #agentAvatar>
-    <img src="cv-avatar.png" alt="Agent Avatar" style="height: 40px; width: 40px; object-fit: contain;" />
+    <!-- <img src="cv-avatar.png" alt="Agent Avatar" style="height: 40px; width: 40px; object-fit: contain;" /> -->
+    <img [src]="chatType + '-avatar.png'" alt="Agent Avatar" style="height: 80px; width: 80px; object-fit: contain;" />
 </div>

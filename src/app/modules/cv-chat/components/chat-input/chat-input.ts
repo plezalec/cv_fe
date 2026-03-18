@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, ElementRef, ViewChild, OnDestroy, AfterViewInit, inject } from '@angular/core';
+import { Component, Output, EventEmitter, ElementRef, ViewChild, OnDestroy, OnInit, AfterViewInit, inject, Input } from '@angular/core';
 import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 import { ChatWebSocket } from '../../services/chat-web-socket';
+import { ChatType } from '@enums';
 import { DisplayMessage } from '../../models/classes/display-message';
 
 @Component({
@@ -15,15 +16,20 @@ import { DisplayMessage } from '../../models/classes/display-message';
   templateUrl: './chat-input.html',
   styleUrl: './chat-input.css',
 })
-export class ChatInput implements AfterViewInit, OnDestroy {
+export class ChatInput implements AfterViewInit, OnDestroy, OnInit {
   @Output() messageSend = new EventEmitter<DisplayMessage>();
   @Output() newConversation = new EventEmitter<void>();
   @ViewChild('textarea', {static: true}) textarea!: ElementRef<HTMLTextAreaElement>;
+  @Input('chatType') chatType!: ChatType;
 
   
   constructor(
      private wsService: ChatWebSocket
     ) {
+  }
+
+  ngOnInit() {
+    this.wsService.setEndpoint(this.chatType);
   }
 
   private windowResizeHandler!: () => void;

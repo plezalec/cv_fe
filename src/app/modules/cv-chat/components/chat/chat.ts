@@ -31,6 +31,7 @@ export class Chat implements OnInit {
   }
 
   ngOnInit() {
+    this.wsService.setEndpoint(this.chatType);
     this.setLastConversation();
     this.firstTime=false;
   }

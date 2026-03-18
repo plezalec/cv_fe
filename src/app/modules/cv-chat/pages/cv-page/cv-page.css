@@ -1,0 +1,10 @@
+.main-page-container {
+  display: flex;
+  width: 100vw;      /* stretches across the viewport */
+  height: calc(100vh - 64px); /* optional: full height */
+}
+
+.main-page-container > * {
+  flex: 1 1 0;
+  min-width: 0;
+}

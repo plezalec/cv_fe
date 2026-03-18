@@ -16,24 +16,24 @@ export class ChatWebSocket {
   private socket$: WebSocketSubject<any> | null = null;
   private readonly keycloak = inject(Keycloak);
   private readonly parseWebSocketJsonPipe = inject(ParseWebSocketJsonPipe);
+  private endpoint: string = 'tutor'; // default endpoint
+
+  setEndpoint(endpoint: string): void {
+    this.endpoint = endpoint;
+    this.close(); // reset socket if endpoint changes
+  }
 
   async initSocket(): Promise<WebSocketSubject<any>> {
     if (!this.socket$) {
-      // Check if user is authenticated
       if (!this.keycloak.authenticated) {
         throw new Error('User is not authenticated');
       }
-
-      // Refresh token if needed (returns true if token was refreshed)
-      //await this.keycloak.updateToken(30);
-
       const token = this.keycloak.token;
       if (!token) {
         throw new Error('Failed to get token');
       }
-
       this.socket$ = webSocket({
-        url: `ws://localhost:8000/ws/agent_html?token=${token}`,
+        url: `ws://localhost:8000/ws/${this.endpoint}?token=${token}`,
         deserializer: (e) => {
           return this.parseWebSocketJsonPipe.transform(e.data);
         },
@@ -85,3 +85,8 @@ export class ChatWebSocket {
     this.socket$ = null;
   }
 }
+
+// Usage example:
+// const wsService = new ChatWebSocket();
+// wsService.setEndpoint('cv'); // Switch to ws://localhost:8000/ws/cv
+// wsService.setEndpoint('sales'); // Switch to ws://localhost:8000/ws/sales

@@ -3,6 +3,7 @@
   flex-direction: column;
   height:100%;
   overflow-y: hidden;
+  position: relative;
 }
 
 .message-window-container {
@@ -15,6 +16,39 @@
     height:100%;
     display: flex;
     flex-direction: column;
+    padding: 10px;
+  padding-left: 100px; /* space for floating avatar */
+    scrollbar-width: thin;          /* Firefox */
+  scrollbar-color: rgba(100, 100, 100, 0.4) transparent;
+  -ms-overflow-style: none;       /* IE/Edge */
+}
+
+/* Chrome, Safari, Edge */
+.message-window-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.message-window-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.message-window-container::-webkit-scrollbar-thumb {
+  background: rgba(100, 100, 100, 0.4);
+  border-radius: 3px;
+}
+
+.message-window-container::-webkit-scrollbar-thumb:hover {
+  background: rgba(100, 100, 100, 0.6);
+}
+
+.message-window-container::-webkit-scrollbar-track-piece:start {
+  background: transparent;
+  margin-top: 30px;
+}
+
+.message-window-container::-webkit-scrollbar-track-piece:end {
+  background: transparent;
+  margin-bottom: 30px;
 }
 
 .message {
@@ -42,4 +76,11 @@
   align-self: flex-start; /* This will align bot messages to the left */
   border-bottom-left-radius: 5px;
   position: relative;
+}
+
+.floating-avatar {
+  position: absolute;
+  left: 5px;
+  bottom: 0;
+  z-index: 10;
 }

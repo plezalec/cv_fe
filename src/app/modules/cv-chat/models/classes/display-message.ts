@@ -3,7 +3,6 @@ import { signal } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { Observable, Subscription } from 'rxjs';
 
-import { ChatWebSocket } from '../../services/chat-web-socket';
 import { MessageContentMessage } from '@interfaces';
 
 export class DisplayMessage {
@@ -43,6 +42,11 @@ export class DisplayMessage {
 
   update_content_from_json(json_message: object): void {
     this.append_json_content(json_message);
+    this.safeContent.set(this.htmlBuilder.transform(this.jsonContent));
+  }
+
+  override_content_from_json(json_message: object): void {
+    this.jsonContent = json_message;
     this.safeContent.set(this.htmlBuilder.transform(this.jsonContent));
   }
 

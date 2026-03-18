@@ -22,3 +22,7 @@ State management for Angular. It acts as a single source of truth for your appli
 [tailwindcss](https://tailwindcss.com/showcase)
 
 [Daysi Ui- simpler tailwind](https://daisyui.com/store/)
+
+# Color pallets
+
+https://colorhunt.co/palettes/popular

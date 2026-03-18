@@ -1,4 +1,4 @@
-import { Component, Input, inject, ChangeDetectorRef, signal, Signal, ViewChild, OnInit, ElementRef } from '@angular/core';
+import { Component, inject, ChangeDetectorRef, signal, Signal, ViewChild, OnInit, ElementRef, Input } from '@angular/core';
 import { DisplayMessage } from '../../models/classes/display-message';
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
@@ -6,7 +6,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 import { ChatConversation } from '../../models/classes/chat-conversation';
 import { ChatWebSocket } from '../../services/chat-web-socket';
-import { MessageType, MessageStatusOptions } from '@enums';
+import { MessageType, MessageStatusOptions, ChatType } from '@enums';
 import { MessageStatusMessage } from '@interfaces';
 import { AgentAvatar } from '../agent-avatar/agent-avatar';
 
@@ -16,8 +16,9 @@ import { AgentAvatar } from '../agent-avatar/agent-avatar';
   templateUrl: './message-window.html',
   styleUrl: './message-window.css',
 })
-export class MessageWindow{
+export class MessageWindow implements OnInit {
   @Input() conversation?: ChatConversation;
+  @Input('chatType') chatType!: ChatType;
   @ViewChild('agentAvatar') agentAvatar!: AgentAvatar;
   @ViewChild('messageWindowContainer') messageWindowContainer!: ElementRef;
 
@@ -41,9 +42,9 @@ export class MessageWindow{
     }
   }
 
-  // ngOnInit() {
-  //   this.agentAvatar.subscribeToStreamingStatus(this.isStreaming);
-  // }
+  ngOnInit() {
+      this.wsService.setEndpoint(this.chatType);
+  }
 
   ngOnChanges() {
     if (this.conversation) {
@@ -72,7 +73,7 @@ export class MessageWindow{
         const statusMessage = message as MessageStatusMessage;
 
 
-        if (statusMessage.content === MessageStatusOptions.Start) {
+        if (statusMessage.content.type === MessageStatusOptions.Start) {
           message=new DisplayMessage("bot", this.sanitizer);
           this.addMessage(message);
           this.subscriptions[statusMessage.messageId] = message;
@@ -80,18 +81,29 @@ export class MessageWindow{
           this.agentAvatar.setIsStreaming(true);
 
 
-        } else if (statusMessage.content === MessageStatusOptions.End) {
+        } else if (statusMessage.content.type === MessageStatusOptions.End) {
           this.subscriptions[statusMessage.messageId]?.unsubscribe();
           delete this.subscriptions[statusMessage.messageId];
           console.log("Unsubscribed from message ID:", statusMessage.messageId);
           console.log("Current subscriptions:", Object.keys(this.subscriptions));
-          if (Object.keys(this.subscriptions).length === 0) {
-            console.log("No active message subscriptions. Setting isStreaming to false.");
-            this.agentAvatar.setIsStreaming(false);
-          }
+          this.checkIfStreaming();
+        } else if (statusMessage.content.type === MessageStatusOptions.Error) {
+          this.subscriptions[statusMessage.messageId]?.unsubscribe();
+          this.subscriptions[statusMessage.messageId]?.override_content_from_json(statusMessage.content.content);
+          delete this.subscriptions[statusMessage.messageId];
+          console.log("Error received for message ID:", statusMessage.messageId);
+          console.log("Current subscriptions after error:", Object.keys(this.subscriptions));
+          this.checkIfStreaming();
         }
       }
     });
+  }
+
+  checkIfStreaming() {
+    if (Object.keys(this.subscriptions).length === 0) {
+            console.log("No active message subscriptions. Setting isStreaming to false.");
+            this.agentAvatar.setIsStreaming(false);
+          }
   }
 
   addMessage(message: DisplayMessage) {

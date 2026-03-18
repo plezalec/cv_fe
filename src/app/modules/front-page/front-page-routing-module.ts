@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { FrontPage } from './front-page/front-page';
+import { FrontPage } from './pages/front-page/front-page';
 import { canActivateAuthRole } from '@guards';
 
 const routes: Routes = [
