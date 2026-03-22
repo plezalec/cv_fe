@@ -6,7 +6,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 import { ChatConversation } from '../../models/classes/chat-conversation';
 import { ChatWebSocket } from '../../services/chat-web-socket';
-import { MessageType, MessageStatusOptions, ChatType } from '@enums';
+import { MessageType, MessageStatusOptions, ConversationType } from '@enums';
 import { MessageStatusMessage } from '@interfaces';
 import { AgentAvatar } from '../agent-avatar/agent-avatar';
 
@@ -18,7 +18,7 @@ import { AgentAvatar } from '../agent-avatar/agent-avatar';
 })
 export class MessageWindow implements OnInit {
   @Input() conversation?: ChatConversation;
-  @Input('chatType') chatType!: ChatType;
+  @Input('conversationType') conversationType!: ConversationType;
   @ViewChild('agentAvatar') agentAvatar!: AgentAvatar;
   @ViewChild('messageWindowContainer') messageWindowContainer!: ElementRef;
 
@@ -43,7 +43,7 @@ export class MessageWindow implements OnInit {
   }
 
   ngOnInit() {
-      this.wsService.setEndpoint(this.chatType);
+      this.wsService.setEndpoint(this.conversationType);
   }
 
   ngOnChanges() {

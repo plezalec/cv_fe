@@ -8,6 +8,7 @@ import { ParseWebSocketJsonPipe } from '../pipes/parse-web-socket-json-pipe';
 import { ChatSocketMessage, ConversationInitMessage, UserMessage, createConversationInitMessage, createUserMessage } from '../../../core/models/interfaces/chat-socket-message';
 import { MessageType } from '@enums';
 import { ChatConversation } from '../models/classes/chat-conversation';
+import { environment } from '@environments';
 
 @Injectable({
   providedIn: 'root',
@@ -33,10 +34,16 @@ export class ChatWebSocket {
         throw new Error('Failed to get token');
       }
       this.socket$ = webSocket({
-        url: `ws://localhost:8000/ws/${this.endpoint}?token=${token}`,
+        url: `${environment.wsUrl}${this.endpoint}?token=${token}`,
         deserializer: (e) => {
           return this.parseWebSocketJsonPipe.transform(e.data);
         },
+      });
+      // Log every incoming message
+      this.socket$.asObservable().subscribe({
+        next: (msg) => console.log('WebSocket message received:', msg),
+        error: (err) => console.error('WebSocket error:', err),
+        complete: () => console.log('WebSocket connection closed')
       });
     }
     return this.socket$;

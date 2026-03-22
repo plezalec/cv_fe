@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Chat } from '../../components/chat/chat';
-import { ChatType } from '@enums';
+import { ConversationType } from '@enums';
 
 @Component({
   selector: 'app-chat-page',
@@ -9,5 +9,5 @@ import { ChatType } from '@enums';
   styleUrl: './chat-page.css',
 })
 export class ChatPage {
-  chatType: ChatType = ChatType.Tutor;
+  conversationType: ConversationType = ConversationType.Tutor;
 }

@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { ChatConversationInterface, MessageInterface } from '../models/interfaces';
 import { environment } from '@environments';
-import { ChatType } from '@enums';
+import { ConversationType } from '@enums';
 
 
 @Injectable({
@@ -16,15 +16,15 @@ export class ChatService {
 
   constructor(private http: HttpClient) {}
 
-  getLastChat(chatType: ChatType): Observable<ChatConversationInterface> {
-    return this.http.get<ChatConversationInterface>(`${this.API_URL}last_chat?chat_type=${chatType}`);
+  getLastChat(conversationType: ConversationType): Observable<ChatConversationInterface> {
+    return this.http.get<ChatConversationInterface>(`${this.API_URL}last_conversation?conversation_type=${conversationType}`);
   }
 
-  getNewChat(chatType: ChatType): Observable<ChatConversationInterface> {
-    return this.http.get<ChatConversationInterface>(`${this.API_URL}new_chat?chat_type=${chatType}`);
+  getNewChat(conversationType: ConversationType): Observable<ChatConversationInterface> {
+    return this.http.get<ChatConversationInterface>(`${this.API_URL}new_conversation?conversation_type=${conversationType}`);
   }
 
-  getSpecificChat(chatID: number = 0,chatType: ChatType): Observable<ChatConversationInterface> {
-    return this.http.get<ChatConversationInterface>(`${this.API_URL}specific_chat?chat_id=${chatID}&chat_type=${chatType}`);
+  getSpecificChat(conversationID: number = 0,conversationType: ConversationType): Observable<ChatConversationInterface> {
+    return this.http.get<ChatConversationInterface>(`${this.API_URL}specific_conversation?conversation_id=${conversationID}&conversation_type=${conversationType}`);
   }
 }

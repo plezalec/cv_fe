@@ -2,11 +2,11 @@
 <div class="chat-container">
 <app-message-window 
 #messageWindow [conversation]="conversation" 
-[chatType]="chatType"
+[conversationType]="conversationType"
 ></app-message-window>
 <app-chat-input 
 (messageSend)="onMessageSend($event)" 
 (newConversation)="setNewConversation()" 
-[chatType]="chatType"
+[conversationType]="conversationType"
 ></app-chat-input>
 </div>

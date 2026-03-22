@@ -7,7 +7,7 @@ import { DisplayMessage } from '../../models/classes/display-message';
 import { ChatConversation } from '../../models/classes/chat-conversation';
 import { ChatService } from '../../services/chat-service';
 import { ChatWebSocket } from '../../services/chat-web-socket';
-import { ChatType } from '@enums';
+import { ConversationType } from '@enums';
 import { ChatConversationInterface} from '../../models/interfaces';
   
 @Component({
@@ -18,7 +18,7 @@ import { ChatConversationInterface} from '../../models/interfaces';
 })
 export class Chat implements OnInit {
   @ViewChild('messageWindow', {static:true}) messageWindow!: MessageWindow;
-  @Input('chatType') chatType!: ChatType;
+  @Input('conversationType') conversationType!: ConversationType;
 
   public conversation?: ChatConversation;
   sanitizer: DomSanitizer= inject(DomSanitizer);
@@ -31,7 +31,7 @@ export class Chat implements OnInit {
   }
 
   ngOnInit() {
-    this.wsService.setEndpoint(this.chatType);
+    this.wsService.setEndpoint(this.conversationType);
     this.setLastConversation();
     this.firstTime=false;
   }
@@ -41,19 +41,19 @@ export class Chat implements OnInit {
   }
 
   setLastConversation(): void {
-    this.chatService.getLastChat(this.chatType).subscribe((conversationData) => {
+    this.chatService.getLastChat(this.conversationType).subscribe((conversationData) => {
       this.setConversation(conversationData)
     });
   }
 
   setNewConversation(): void {
-    this.chatService.getNewChat(this.chatType).subscribe((conversationData) => {
+    this.chatService.getNewChat(this.conversationType).subscribe((conversationData) => {
       this.setConversation(conversationData)
     });
   }
 
   setSpecificConversation(chatId: number): void {
-    this.chatService.getSpecificChat(chatId,this.chatType).subscribe((conversationData) => {
+    this.chatService.getSpecificChat(chatId,this.conversationType).subscribe((conversationData) => {
       this.setConversation(conversationData)
     });
   }

@@ -7,7 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 import { ChatWebSocket } from '../../services/chat-web-socket';
-import { ChatType } from '@enums';
+import { ConversationType } from '@enums';
 import { DisplayMessage } from '../../models/classes/display-message';
 
 @Component({
@@ -20,7 +20,7 @@ export class ChatInput implements AfterViewInit, OnDestroy, OnInit {
   @Output() messageSend = new EventEmitter<DisplayMessage>();
   @Output() newConversation = new EventEmitter<void>();
   @ViewChild('textarea', {static: true}) textarea!: ElementRef<HTMLTextAreaElement>;
-  @Input('chatType') chatType!: ChatType;
+  @Input('conversationType') conversationType!: ConversationType;
 
   
   constructor(
@@ -29,7 +29,7 @@ export class ChatInput implements AfterViewInit, OnDestroy, OnInit {
   }
 
   ngOnInit() {
-    this.wsService.setEndpoint(this.chatType);
+    this.wsService.setEndpoint(this.conversationType);
   }
 
   private windowResizeHandler!: () => void;

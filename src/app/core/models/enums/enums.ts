@@ -1,4 +1,4 @@
-export enum ChatType {
+export enum ConversationType {
 	Tutor = 'tutor',
     CV = 'cv',
 }
