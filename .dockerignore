@@ -1,0 +1,15 @@
+node_modules/
+.git/
+.angular/
+.tmp/
+.vscode/
+doc/
+*.log
+*.md
+*.env
+coverage/
+test/
+src/**/*.spec.ts
+environments/
+/dist/
+/build/

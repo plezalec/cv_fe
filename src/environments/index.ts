@@ -1,1 +1,1 @@
-export * from './environment';
+export * from './dev_environment';

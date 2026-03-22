@@ -28,3 +28,6 @@ https://material.angular.dev/cdk/scrolling/overview
 # Display message should be an angular componenet
 
 # Light dark theme
+
+# Environment detection at runtime
+https://robododd.com/dynamic-environment-variables-in-angular-a-docker-ready-solution/

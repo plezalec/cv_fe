@@ -11,5 +11,6 @@ export const environment = {
         checkLoginIframe: false
         }
     },
-    apiUrl: 'http://localhost:8000/'
+    apiUrl: 'http://localhost:8888/',
+    wsUrl: 'ws://localhost:8888/ws/',
 };

@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: cv
+spec:
+  containers:
+    - name: fe
+      image: localhost/cv_fe:latest
+      ports:
+        - containerPort: 80
+          hostPort: 80
