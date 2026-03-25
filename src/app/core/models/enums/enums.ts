@@ -14,4 +14,5 @@ export enum MessageStatusOptions{
     Start = 'START',
     End = 'END',
     Error = 'ERROR',
+    Disconnect = 'DISCONNECT',
 }

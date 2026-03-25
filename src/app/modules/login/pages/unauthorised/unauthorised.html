@@ -1,8 +1,29 @@
 
 <div class="main-page-container">
   <div class="main-page-content">
-    <h1>You are not authorised to view this page.</h1>
-    <p>Please login to access this page.</p>
+    <h1>To see the content of this page, you need to login.</h1>
     <app-login-button></app-login-button>
+  </div>
+
+
+  <div class="main-page-content">
+    <p>If you want to get access to this page, please contact me for credentials.</p>
+    <mat-form-field>
+      <mat-label>Return email</mat-label>
+      <input type="email" matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher"
+        placeholder="Ex. pat@example.com">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Message</mat-label>
+      <textarea matInput [formControl]="messageFormControl"></textarea>
+    </mat-form-field>
+    <div class="contact-form-actions">
+      <button mat-raised-button color="primary" [disabled]="!canSubmit" (click)="onSubmit()">
+        Submit
+      </button>
+    </div>
+    <div *ngIf="submitSuccess === true" style="color: green; margin-top: 8px;" class="message-confirmation-div">Message sent successfully.</div>
+    <div *ngIf="submitSuccess === false" style="color: red; margin-top: 8px;" class="message-confirmation-div">Failed to send message.</div>
+    <mat-spinner *ngIf="submitting" [diameter]="40" [strokeWidth]="5"></mat-spinner>
   </div>
 </div>

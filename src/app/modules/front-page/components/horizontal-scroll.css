@@ -1,9 +1,0 @@
-.gallery-container {
-      height: 300px; overflow: hidden;
-    }
-    .gallery-track {
-      display: flex; gap: 20px; animation: none;
-    }
-    .gallery-img {
-      width: 250px; height: 200px; flex-shrink: 0; object-fit: cover;
-    }
