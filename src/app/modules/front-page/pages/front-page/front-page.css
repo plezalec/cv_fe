@@ -55,33 +55,34 @@
 .right-justified {
 	text-align: right;
 }
-.dweeb-tooltip-container {
+.tooltip-container {
 	position: relative;
 	display: inline-block;
 	cursor: pointer;
 }
-.dweeb-tooltip-container .definition {
-	display: none;
-	position: absolute;
-	left: 50%;
-	top: 120%;
-	transform: translateX(-50%);
-	min-width: 260px;
-	max-width: 320px;
-	background: #fffbe8;
-	color: #222;
-	border: 1px solid #e0c97f;
-	border-radius: 8px;
-	box-shadow: 0 4px 16px rgba(0,0,0,0.12);
-	padding: 16px 18px;
-	z-index: 100;
-	font-size: 1rem;
-	line-height: 1.4;
-	pointer-events: none;
+.tooltip-container .definition {
+  display: none;
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  transform: translateX(-50%);
+  min-width: 260px;
+  max-width: 320px;
+  background: #fffbe8;
+  color: #222;
+  border: 1px solid #e0c97f;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+  padding: 16px 18px;
+  z-index: 100;
+  font-size: 1rem;
+  line-height: 1.4;
+  pointer-events: auto;
 }
-.dweeb-tooltip-container:hover .definition,
-.dweeb-tooltip-container:focus .definition {
-	display: block;
+.tooltip-container:hover .definition,
+.tooltip-container:focus .definition,
+.tooltip-container .definition:hover {
+  display: block;
 }
 .quote-container {
 	background: #73a5c055;
@@ -162,11 +163,6 @@
 .right-justified.img-footnote {
 	font: italic 0.9rem/1.4 "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 	margin-top: 0;
-}
-
-p {
-	font-size: 1.1rem;
-	line-height: 1.6;
 }
 
 .personal-info-container {

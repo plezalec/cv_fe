@@ -5,3 +5,8 @@ html, body {
   padding: 0; /* optional, also removes default padding */
   background-color: #000000;
 }
+
+p {
+	font-size: 1.1rem;
+	line-height: 1.6;
+}

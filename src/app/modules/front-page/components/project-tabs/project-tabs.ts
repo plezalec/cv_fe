@@ -19,7 +19,7 @@ export interface ExampleTab {
   selector: 'app-project-tabs',
   imports: [MatTabsModule, AsyncPipe, NgComponentOutlet, LaserCutting, SlicerSoftware, ARSO, OtherIdeas],
   templateUrl: './project-tabs.html',
-  styleUrl: './project-tabs.css',
+  styleUrls: ['./project-tabs.css', './project-tabs.scss'],
 })
 export class ProjectTabs {
   asyncTabs: Observable<ExampleTab[]>;

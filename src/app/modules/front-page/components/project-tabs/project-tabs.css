@@ -1,0 +1,22 @@
+/* Ensure mat-tab-group tabs are fully visible and not scrollable or cut off */
+::ng-deep .mat-tab-group {
+	width: 100%;
+}
+
+::ng-deep .mat-tab-list {
+	flex-wrap: wrap !important;
+	overflow: visible !important;
+	max-width: 100% !important;
+}
+
+::ng-deep .mat-tab-labels {
+	flex-wrap: wrap !important;
+	overflow: visible !important;
+	max-width: 100% !important;
+}
+
+::ng-deep .mat-tab-label {
+	white-space: normal !important;
+	min-width: 120px;
+	max-width: 240px;
+}

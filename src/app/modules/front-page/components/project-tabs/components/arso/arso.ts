@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
+import { ContentCreation } from '@core-components';
 
 @Component({
   selector: 'app-arso',
-  imports: [],
+  imports: [ContentCreation],
   templateUrl: './arso.html',
-  styleUrl: './arso.css',
+  styleUrls: ['./arso.css','../../../../pages/front-page/front-page.css'],
 })
 export class ARSO {
 

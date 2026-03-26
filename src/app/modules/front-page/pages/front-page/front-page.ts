@@ -6,11 +6,11 @@ import { RouterLink } from '@angular/router';
 
 import { HorizontalScroll } from '../../components/horizontal-scroll/horizontal-scroll';
 import { ProjectTabs } from '../../components/project-tabs/project-tabs';
-
+import { Footer } from '../../components/footer/footer';
 
 @Component({
   selector: 'app-front-page',
-  imports: [HorizontalScroll, ProjectTabs, MatIconModule, MatButtonModule, MatToolbarModule, RouterLink],
+  imports: [HorizontalScroll, ProjectTabs, Footer, MatIconModule, MatButtonModule, MatToolbarModule, RouterLink],
   templateUrl: './front-page.html',
   styleUrls: ['./front-page.css', '../../../navbar/navbar/navbar.css'],
 })
