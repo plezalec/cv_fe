@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
-import { ContentCreation } from '@core-components';
+import { NgbPopoverModule } from '@ng-bootstrap/ng-bootstrap';
+import { Tooltip } from '@core-components';
 
 @Component({
   selector: 'app-arso',
-  imports: [ContentCreation],
+  imports: [ NgbPopoverModule, Tooltip],
   templateUrl: './arso.html',
-  styleUrls: ['./arso.css','../../../../pages/front-page/front-page.css'],
+  styleUrls: ['./arso.css'],
 })
 export class ARSO {
 

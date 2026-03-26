@@ -1,0 +1,19 @@
+<span
+	#trigger
+	[ngbPopover]="popoverContent"
+	triggers="manual"
+	container="body"
+	[autoClose]="'outside'"
+	#pop="ngbPopover"
+	(mouseenter)="onTriggerEnter(pop)"
+	(mouseleave)="onTriggerLeave(pop)"
+	(shown)="onPopoverShown(pop)"
+	(hidden)="onPopoverHidden(pop)"
+>
+	<strong class="keyword"><ng-content></ng-content></strong>
+</span>
+<ng-template #popoverContent>
+	<div (mouseenter)="onPopoverEnter(pop)" (mouseleave)="onPopoverLeave(pop)" class="definition">
+		<ng-container *ngTemplateOutlet="popover"></ng-container>
+	</div>
+</ng-template>

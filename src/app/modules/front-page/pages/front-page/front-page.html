@@ -1,49 +1,55 @@
 <div class="outer-container">
-<div class="top-container">
-    <div class="personal-info-container">
-        <div class="personal-image-container">
-            <img src="personal_image.jpg" alt="Personal image" class="personal-image">
+    <div class="top-container">
+        <div class="personal-info-container">
+            <div class="personal-image-container">
+                <img src="personal_image.jpg" alt="Personal image" class="personal-image">
+            </div>
+            <div class="info-container">
+                <h1> Pavel Križnar<span class="degree-title">MEng MSc</span></h1>
+
+                <p> Welcome to my portfolio website. Here I will showcase my skills and projects in various domains.</p>
+                <ul>
+                    <li>Full stack development</li>
+                    <li>DevOps</li>
+                    <li>CAD/CAM workflow integration</li>
+                    <li>Mechanical Engineering master's degree</li>
+                </ul>
+            </div>
         </div>
-        <div class="info-container">
-            <h1> Pavel Križnar<span class="degree-title">MEng MSc</span></h1>
 
-            <p> Welcome to my portfolio website. Here I will showcase my skills and projects in various domains.</p>
-            <ul>
-                <li>Full stack development</li>
-                <li>DevOps</li>
-                <li>CAD/CAM workflow integration</li>
-                <li>Mechanical Engineering master's degree</li>
-            </ul>
+        <h1>Check out my CV and AI tutor project:</h1>
+
+        <div class="AI-buttons-container">
+            <a matButton [routerLink]="'chat/tutor'" class="rounded-btn">CV CHAT</a>
+            <a matButton [routerLink]="'chat/cv'" class="rounded-btn">TUTOR CHAT</a>
         </div>
+        <app-project-tabs></app-project-tabs>
     </div>
-
-    <h1>Check out my CV and AI tutor project:</h1>
-
-    <div class="AI-buttons-container"> 
-        <a matButton [routerLink]="'chat/tutor'" class="rounded-btn">CV CHAT</a>
-        <a matButton [routerLink]="'chat/cv'" class="rounded-btn">TUTOR CHAT</a>
-    </div>
-    <app-project-tabs></app-project-tabs>
-</div>
-<app-horizontal-scroll></app-horizontal-scroll>
-<div class="top-container">
-
-        <h2> My philosophy on using <span class='tooltip-container'><strong class="keyword">LLM</strong>
-            <span class="definition" role="tooltip">
-                <strong>LLM</strong>: Large Language Model. A type of artificial intelligence model trained on vast amounts of text data to understand and generate human-like language. Examples include Grok, GPT-4, Gemini, and Llama.
-            </span>
-            
-        </span> tools</h2>
-    <p>In the age of AI you don't stand out by offering many different features, that a user gets overwhelmed by. You stand out by being unique, creative and offering a few features exceptionally well. We have so many tools at our disposal, so we have to use them to our benefit, or someone else will. We should all get comfortable with leveraging AI to enhance our creativity and productivity.</p>
-    <div>
-        <img src="Innovo ergo sum small.jpg" alt="Logo image" class="center-img">
-        <p class="right-justified img-footnote">"<span class='tooltip-container'><strong class="keyword">Innovo</strong>
-            <span class="definition" role="tooltip">
+    <app-horizontal-scroll></app-horizontal-scroll>
+    <div class="top-container">
+        <ng-template #llmDef>
+            <div class="definition">
+                <strong>LLM</strong>: Large Language Model. A type of artificial intelligence model trained on vast
+                amounts of text data to understand and generate human-like language. Examples include Grok, GPT-4,
+                Gemini, and Llama.
+            </div>
+        </ng-template>
+                <h2> My philosophy on using
+                    <app-tooltip [popover]="llmDef">LLM</app-tooltip> tools
+                </h2>
+        <p>In the age of AI you don't stand out by offering many different features, that a user gets overwhelmed by.
+            You stand out by being unique, creative and offering a few features exceptionally well. We have so many
+            tools at our disposal, so we have to use them to our benefit, or someone else will. We should all get
+            comfortable with leveraging AI to enhance our creativity and productivity.</p>
+        <div>
+            <img src="Innovo ergo sum small.jpg" alt="Logo image" class="center-img">
+            <ng-template #innovoDef>
                 <strong>Innovare</strong>: “to renew,” “to restore,” or “to innovate”<br>
-                <a href="https://goong.com/latin/innovo_meaning/"rel="noopener">Goong.com</a>
-            </span>
-        </span> ergo sum" Made by XAI <a href="https://x.ai/api/imagine">Imagine API</a></p>
-    </div>
+                <a href="https://goong.com/latin/innovo_meaning/" rel="noopener">Goong.com</a>
+            </ng-template>
+            <p class="right-justified img-footnote">"<app-tooltip [popover]="innovoDef">Innovo</app-tooltip> ergo sum" Made by XAI <a
+                href="https://x.ai/api/imagine">Imagine API</a></p>
+        </div>
         <div class="creative-process-steps">
             <div class="creative-process-title">My approach to the creative design process:</div>
             <div class="creative-process-list">
@@ -57,26 +63,32 @@
             </div>
         </div>
 
-    <p>Today more than ever it's possible to try things out and succeed or learn from them.</p>
+        <p>Today more than ever it's possible to try things out and succeed or learn from them.</p>
 
-    <h3> Get comfortable with failure. You can fail really fast and pivot.</h3>
+        <h3> Get comfortable with failure. You can fail really fast and pivot.</h3>
         <div class="quote-container">
             <blockquote>
                 <p>"If you want to be successful, I would encourage you to grow a tolerance for failure."</p>
-                <p>"I want you to try things even though it is impossible to calculate precisely that it will lead to success, that your instincts, your intuition is something you aught to follow."</p>
-                                <p>"Innovation requires a little bit of experimentation. Experimentation requires exploration, and exploration will result in failure. Unless you have a tolerance for failure, you would never experiment. And if you don't ever experiment, you would never innovate. If you don't innovate, you don't succeed... you will just be a <span class='tooltip-container'><strong class="keyword">dweeb</strong>
-                                    <span class="definition" role="tooltip">
-                                        <strong>Dweeb</strong>: A person regarded as physically and socially awkward and has little confidence, sometimes they're just plain foolish, often on account of being overly studious.<br>
-                                        <em>"That kid is such a dweeb."</em><br>
-                                        <a href="https://www.urbandictionary.com/define.php?term=dweeb"rel="noopener">Urban Dictionary</a>
-                                    </span>
-                                </span>."
+                <p>"I want you to try things even though it is impossible to calculate precisely that it will lead to
+                    success, that your instincts, your intuition is something you aught to follow."</p>
+                <ng-template #dweebDef>
+                    <strong>Dweeb</strong>: A person regarded as physically and socially awkward and has little
+                    confidence, sometimes they're just plain foolish, often on account of being overly studious.<br>
+                    <em>"That kid is such a dweeb."</em><br>
+                    <a href="https://www.urbandictionary.com/define.php?term=dweeb" rel="noopener">Urban
+                        Dictionary</a>
+                </ng-template>
+                <p>"Innovation requires a little bit of experimentation. Experimentation requires exploration, and
+                    exploration will result in failure. Unless you have a tolerance for failure, you would never
+                    experiment. And if you don't ever experiment, you would never innovate. If you don't innovate, you
+                    don't succeed... you will just be a <app-tooltip [popover]="dweebDef">dweeb</app-tooltip>."
             </blockquote>
             <footer>
-                — <a href="https://www.youtube.com/watch?v=Xn1EsFe7snQ&t=35m15s"rel="noopener">Jensen Huang, CEO of NVIDIA</a>
+                — <a href="https://www.youtube.com/watch?v=Xn1EsFe7snQ&t=35m15s" rel="noopener">Jensen Huang, CEO of
+                    NVIDIA</a>
             </footer>
         </div>
 
-</div>
-<app-footer></app-footer>
+    </div>
+    <app-footer></app-footer>
 </div>

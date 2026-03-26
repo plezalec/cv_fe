@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { FrontPageRoutingModule } from './front-page-routing-module';
 
@@ -8,7 +9,8 @@ import { FrontPageRoutingModule } from './front-page-routing-module';
   declarations: [],
   imports: [
     CommonModule,
-    FrontPageRoutingModule
+    FrontPageRoutingModule,
+    NgbModule
   ]
 })
 export class FrontPageModule { }
