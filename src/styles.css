@@ -50,3 +50,12 @@ p {
   position: absolute;
   z-index: 10;
 }
+.right-justified {
+	text-align: center;
+}
+
+
+.right-justified.img-footnote {
+	font: italic 0.9rem/1.4 "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+	margin-top: 0;
+}

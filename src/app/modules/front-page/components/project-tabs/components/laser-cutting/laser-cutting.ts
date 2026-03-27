@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { ContentCreation } from '@core-components';
+import { Tooltip } from '@core-components';
 
 @Component({
   selector: 'app-laser-cutting',
-  imports: [ContentCreation],
+  imports: [ Tooltip],
   templateUrl: './laser-cutting.html',
   styleUrl: './laser-cutting.css',
 })

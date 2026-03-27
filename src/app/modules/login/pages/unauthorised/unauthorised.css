@@ -5,6 +5,14 @@
   box-sizing: border-box;
 }
 
+.unauthorised-image {
+  max-width: 400px;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
+}
+
 .message-confirmation-div {
 	background: #ffffff;
   padding: 2px 7px;
@@ -35,9 +43,9 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 100vw;
-  height: calc(100vh - 64px);
   gap: 32px;
+  overflow-y: hidden;
+  margin: 30px 0;
 }
 
 .main-page-content p {

@@ -1,1 +1,48 @@
-<app-content-creation></app-content-creation>
+<h1>Parametric design support</h1>
+
+<p>Many times there is a need for custom products. Customers might want to buy something only if it is tailored specifically to their dimensions. If we provide a parametric blueprint, customers can easily adjust the design to fit their needs.</p>
+<p>That is why I designed the system to automatise the whole process from parametric design to laser cutting pieces for assembly.</p>
+<div class="shop-example-container">
+<img src="tabs/Laser_cutting/shop.png" alt="Shop example" class="center-img">
+<img src="tabs/Laser_cutting/shop1.png" alt="Shop example" class="center-img">
+</div><p class="right-justified img-footnote">Customers can choose unit length and height to easily customise the product.</p>
+
+<h2>How it works</h2>
+<h3>Submitting order</h3>
+<p>After a customer submits the order, the order is stored in the database and waits to be processed along with other orders. </p>
+<h3>Processing orders</h3>
+<p>The system collects all the orders and matches same parts from different orders to optimise the cutting process. Then it optimises the part layout on the material sheet based on the dimensions of laser cutters available.</p>
+<div class="shop-example-container">
+<img style="max-width: 500px;" src="tabs/Laser_cutting/parts.png" alt="LightBurn logo example" class="center-img white-bg">
+</div>
+<p class="right-justified img-footnote">Examples of parts with engravings.</p>
+<p> To minimise the waste and decrease cutting time by overlapping cuts, parts are further grouped by overlaping features. Then cut lines get drawn and engravings are put into place.</p>
+<div class="shop-example-container">
+<img src="tabs/Laser_cutting/razrez1.PNG" alt="Blueprint example" class="center-img sheet">
+<img src="tabs/Laser_cutting/razrez2.PNG" alt="Blueprint example" class="center-img sheet">
+</div>
+<p class="right-justified img-footnote">Cutting sheet blueprint with cut lines and engravings.</p>
+<p>Finally cuttting sheet blueprints are formed and put into the laser cutter queue to be cut.</p>
+<h3>Cutting the parts</h3>
+<div class="shop-example-container">
+<img style="max-width: 300px; border-radius: 2px;" src="tabs/Laser_cutting/LightBurn.png" alt="LightBurn logo example" class="center-img">
+</div>
+<p> Cutting sheet blueprints are drawn in a LightBurn compatible <app-tooltip [popover]="svg">svg</app-tooltip> format. Custom script fetches the blueprints from the queue and triggers the cutting process driven by the LightBurn software.</p>
+<div class="shop-example-container">
+<img style="max-width: 300px;" src="tabs/Laser_cutting/S40_max.webp" alt="Laser cutter image" class="center-img">
+</div>
+<p class="right-justified img-footnote">Example of a laser cutter used</p>
+
+<h3>Final product</h3>
+<p>Final product is then assembled, or left unassembled for the customer to assemble themselves, and can be shipped to a customer.</p>
+
+<div class="shop-example-container">
+<img src="tabs/Laser_cutting/product1.jpg" alt="Final product example" class="center-img product">
+<img src="tabs/Laser_cutting/product2.jpg" alt="Final product example" class="center-img product">
+</div>
+<p class="right-justified img-footnote">Examples of final products</p>
+
+<ng-template #svg>
+        <strong>svg</strong>: Scalable Vector Graphics is an XML-based vector graphics format for defining two-dimensional graphics, having support for interactivity and animation.<br>
+        <a href="https://en.wikipedia.org/wiki/SVG" rel="noopener">https://en.wikipedia.org/wiki/SVG</a>
+</ng-template>

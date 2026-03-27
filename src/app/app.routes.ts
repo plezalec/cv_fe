@@ -1,7 +1,5 @@
 import { Routes } from '@angular/router';
 
-import { ARSO } from './modules/front-page/components/project-tabs/components/arso/arso';
-
 export const routes: Routes = [
     {
         path:'',
@@ -12,10 +10,6 @@ export const routes: Routes = [
         path:'chat',
         loadChildren: () => 
             import('./modules/cv-chat/cv-chat-module').then(m => m.CvChatModule),
-    },
-    {
-        path:'arso',
-        component: ARSO,
     },
     {
         path:'unauthorised',

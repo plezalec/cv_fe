@@ -2,7 +2,7 @@
   Loading tabs...
 }
 
-<mat-tab-group [selectedIndex]="selectedTabIndex" (selectedIndexChange)="onTabChange($event)">
+<mat-tab-group [selectedIndex]="selectedTabIndex" (selectedIndexChange)="onTabChange($event)" class="custom-mat-tab-group">
   @for (tab of asyncTabs | async; track tab) {
     <mat-tab>
       <ng-template mat-tab-label>{{tab.label}}</ng-template>

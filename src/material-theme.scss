@@ -39,6 +39,27 @@ body {
 // Customize the entire app. Change :root to your selector if you want to scope the styles.
 :root {
   @include mat.progress-spinner-overrides((
-    active-indicator-color: rgb(35, 119, 128)
+    active-indicator-color: #1f5f72
+  ));
+}
+
+:root {
+  @include mat.tabs-overrides((
+    //active-focus-indicator-color: #ff0000, // red
+    active-focus-label-text-color: #0b0e5b, // lime
+    //active-hover-indicator-color: #0000ff, // blue
+    //active-hover-label-text-color: #ffff00, // yellow
+    active-indicator-color: #3a30c8, // cyan
+    active-label-text-color: #0b0e5b, // magenta
+    //active-ripple-color: #ffa500, // orange
+    //divider-color: #800080, // purple
+    //inactive-focus-label-text-color: #008000, // green
+    //inactive-hover-label-text-color: #808000, // olive
+    //inactive-label-text-color: #000080, // navy
+    //inactive-ripple-color: #c0c0c0, // silver
+    //pagination-icon-color: #ff69b4, // hot pink
+    //disabled-ripple-color: #a52a2a, // brown
+    //background-color: #e0e0e0, // light gray
+    //foreground-color: #222222, // dark gray
   ));
 }
