@@ -12,6 +12,11 @@ export const routes: Routes = [
             import('./modules/cv-chat/cv-chat-module').then(m => m.CvChatModule),
     },
     {
+        path:'cv',
+        loadChildren: () => 
+            import('./modules/cv/cv-module').then(m => m.CvModule),
+    },
+    {
         path:'unauthorised',
         loadComponent: () => import('./modules/login/pages/unauthorised/unauthorised').then(m => m.Unauthorised)
     },

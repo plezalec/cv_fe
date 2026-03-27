@@ -24,7 +24,8 @@ export class Navbar {
   routes: NavRoute[] = [
     { path: '', label: 'Front Page' },
     { path: 'chat/cv', label: 'CV Chat' },
-    { path: 'chat/tutor', label: 'Tutor Chat' }
+    { path: 'chat/tutor', label: 'Tutor Chat' },
+    { path: 'cv', label: 'Plain CV' }
   ];
 
   readonly user = this.userInfo.user;

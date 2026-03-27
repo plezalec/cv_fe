@@ -1,0 +1,6 @@
+.content-creation {
+	height: calc(100vh - 64px);
+	box-sizing: border-box;
+	display: flex;
+	flex-direction: column;
+}
